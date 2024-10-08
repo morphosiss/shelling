@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "General Sans";
+  src: url("./assets/fonts/GeneralSans-Variable.ttf") format('truetype');
+}
+
+:root {
+  font-family: 'General Sans', sans-serif;
+  font-size: 16px;
+  --back-color: #242424;
+}
+
+html, body {
+  background-color: var(--back-color);
+}
