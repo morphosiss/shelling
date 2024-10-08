@@ -2,7 +2,9 @@ function Guide() {
   return (
     <section className="mt-28 max-w-5xl w-full m-auto">
       <header>
-        <h3 className="text-4xl text-center font-medium text-white">Guia</h3>
+        <h3 id="guia" className="text-4xl text-center font-medium text-white">
+          Guia
+        </h3>
       </header>
 
       <div className="explanation_container mt-10">

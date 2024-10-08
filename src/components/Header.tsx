@@ -3,6 +3,7 @@ import Logo from "/img/logo_white.png";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface ICard {
   icon: ReactNode;
@@ -13,9 +14,7 @@ interface ICard {
 const Card: React.FC<ICard> = ({ icon, title, desc }) => {
   return (
     <div className="w-80 bg-gradient-to-b rounded-t-xl from-green-600 to-transparent p-5">
-      <header>
-        {icon}
-      </header>
+      <header>{icon}</header>
       <div className="pt-6">
         <h2 className="text-xl text-white font-medium">{title}</h2>
         <p className="text-[14px] pt-3 text-white">{desc}</p>
@@ -98,21 +97,19 @@ function Header() {
           <ul className="flex items-center gap-12">
             <li>
               <a
-                href="#"
+                href="#guia"
                 className="text-zinc-300 font-medium transition-all hover:text-white"
               >
                 Guia
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                className="text-zinc-300 font-medium transition-all hover:text-white"
-              >
-                Desafios
-              </a>
-            </li>
-           
+            <Link
+              to="/desafios"
+              className="text-zinc-300 font-medium transition-all hover:text-white"
+            >
+              Desafios
+            </Link>
+
             <li>
               <a
                 href="#"
