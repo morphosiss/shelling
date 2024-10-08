@@ -1,4 +1,6 @@
 import './App.css'
+import Footer from './components/Footer'
+import Guide from './components/Guide'
 import Header from './components/Header'
 
 function App() {
@@ -6,6 +8,8 @@ function App() {
   return (
     <>
       <Header />
+      <Guide />
+      <Footer />
     </>
   )
 }

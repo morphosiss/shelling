@@ -14,7 +14,6 @@ const Card: React.FC<ICard> = ({ icon, title, desc }) => {
   return (
     <div className="w-80 bg-gradient-to-b rounded-t-xl from-green-600 to-transparent p-5">
       <header>
-        {/* <Zap size={28} className="text-white" /> */}
         {icon}
       </header>
       <div className="pt-6">
@@ -91,7 +90,7 @@ const BannerIntial = () => {
 function Header() {
   return (
     <header className="w-full">
-      <div className="navbar fixed top-0 left-0 right-0 border-b border-zinc-700 flex px-8 py-4 w-full justify-around items-center">
+      <div className="navbar bg-[#242424] fixed top-0 left-0 right-0 border-b border-zinc-700 flex px-8 py-4 w-full justify-around items-center">
         <div>
           <img src={Logo} alt="logo_image" className="w-32" />
         </div>
@@ -113,14 +112,7 @@ function Header() {
                 Desafios
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                className="text-zinc-300 font-medium transition-all hover:text-white"
-              >
-                Contribua
-              </a>
-            </li>
+           
             <li>
               <a
                 href="#"
