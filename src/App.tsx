@@ -1,10 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Footer from "./components/Footer";
-import Guide from "./components/Guide";
-import Header from "./components/Header";
 import Home from "./pages/Home";
 import Desafios from "./pages/Desafios";
+import Register from "./pages/Register"
+import Dashboard from "./pages/Dashboard"
 
 function App() {
   return (
@@ -12,6 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/desafios" element={<Desafios />} />
+        <Route path="/login" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>
   );

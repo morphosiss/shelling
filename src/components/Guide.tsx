@@ -1,6 +1,6 @@
 function Guide() {
   return (
-    <section className="mt-28 max-w-5xl w-full m-auto">
+    <section className="mt-28 p-5 max-w-5xl w-full m-auto">
       <header>
         <h3 id="guia" className="text-4xl text-center font-medium text-white">
           Guia

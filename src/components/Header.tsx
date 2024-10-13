@@ -1,4 +1,4 @@
-import { Network, ShieldHalf, Unplug, UserPlus, Zap } from "lucide-react";
+import { Menu, Network, ShieldHalf, Unplug, UserPlus, Zap } from "lucide-react";
 import Logo from "/img/logo_white.png";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -13,7 +13,7 @@ interface ICard {
 
 const Card: React.FC<ICard> = ({ icon, title, desc }) => {
   return (
-    <div className="w-80 bg-gradient-to-b rounded-t-xl from-green-600 to-transparent p-5">
+    <div className="w-full bg-gradient-to-b rounded-t-xl from-green-600 to-transparent p-5">
       <header>{icon}</header>
       <div className="pt-6">
         <h2 className="text-xl text-white font-medium">{title}</h2>
@@ -25,15 +25,15 @@ const Card: React.FC<ICard> = ({ icon, title, desc }) => {
 
 const BannerIntial = () => {
   return (
-    <section className="mt-44">
-      <div className="max-w-6xl pt-10 m-auto w-full text-center">
-        <h1 className="text-white text-7xl font-medium">
+    <section className="paisagem-tablet:mt-44 mt-24">
+      <div className="max-w-6xl p-4 pt-10 m-auto w-full text-center">
+        <h1 className="text-white desktop:text-7xl paisagem-tablet:text-5xl retrato-tablet:text-4xl text-3xl font-medium">
           Teste seus conhecimentos em{" "}
           <span className="text-green-500 underline">shell script</span> de
           maneira eficiente!{" "}
         </h1>
         <div className="pt-8 max-w-4xl w-full m-auto">
-          <p className="text-white text-[18px]">
+          <p className="text-white retrato-tablet:text-[18px]">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi non
             reiciendis sunt vero, consequuntur placeat, blanditiis sit labore
             similique laborum ipsa veritatis necessitatibus, sapiente quasi
@@ -56,7 +56,7 @@ const BannerIntial = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 mx-auto mt-20 max-w-7xl w-full gap-5">
+      <div className="grid retrato-tablet:grid-cols-2 p-5 grid-cols-1  paisagem-tablet:grid-cols-4 mx-auto mt-20 max-w-7xl w-full desktop:gap-3 gap-1">
         <Card
           icon={<Zap size={21} className="text-white" />}
           title="Prática"
@@ -89,11 +89,11 @@ const BannerIntial = () => {
 function Header() {
   return (
     <header className="w-full">
-      <div className="navbar bg-[#242424] fixed top-0 left-0 right-0 border-b border-zinc-700 flex px-8 py-4 w-full justify-around items-center">
+      <div className="navbar bg-[#242424] fixed top-0 left-0 right-0 border-b border-zinc-700 flex paisagem-tablet:px-8 px-4 py-4 w-full justify-between paisagem-tablet:justify-around items-center">
         <div>
           <img src={Logo} alt="logo_image" className="w-32" />
         </div>
-        <nav>
+        <nav className="paisagem-tablet:inline-flex hidden">
           <ul className="flex items-center gap-12">
             <li>
               <a
@@ -129,15 +129,22 @@ function Header() {
               </Tippy>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/login"
                 className="px-6 transition-all hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-green-600 rounded-full"
               >
                 Entrar
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
+        <div className="paisagem-tablet:hidden inline-flex">
+          <Tippy content="Menu">
+            <button className="text-white transition-all hover:text-green-500">
+              <Menu />
+            </button>
+          </Tippy>
+        </div>
       </div>
       <BannerIntial />
     </header>

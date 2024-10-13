@@ -1,12 +1,53 @@
 @font-face {
   font-family: "General Sans";
-  src: url("./assets/fonts/GeneralSans-Variable.ttf") format('truetype');
+  src: url("./assets/fonts/GeneralSans-Variable.ttf") format("truetype");
+  font-display: fallback;
+}
+@font-face {
+  font-family: "JetBrains Mono Regular";
+  src: url("./assets/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+  font-display: fallback;
+}
+
+.markdown-body ul {
+  list-style-type: disc; /* Bolinhas para lista não ordenada */
+  margin-left: 1.5rem;
+}
+
+.markdown-body ol {
+  list-style-type: decimal; /* Números para lista ordenada */
+  margin-left: 1.5rem;
+}
+
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141414;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #858585;
 }
 
 :root {
-  font-family: 'General Sans', sans-serif;
+  font-family: "General Sans", sans-serif;
   font-size: 16px;
   --back-color: #242424;
+}
+
+.syntax-highlighter,
+.useCodeFont {
+  font-family: "JetBrains Mono Regular", sans-serif;
 }
 html {
   scroll-behavior: smooth;
@@ -14,4 +55,37 @@ html {
 
 body {
   background-color: var(--back-color);
+}
+
+.each_exe {
+  transform: translateY(100%);
+  transition: all 1s ease-in-out;
+}
+
+.showExe {
+  transition: all 1s ease-in-out;
+  animation: showExeAnimation 0.42s ease-in-out forwards;
+}
+
+.closeExe {
+  transition: all 1s ease-in-out;
+  animation: closeExeAnimation 0.42s ease-in-out forwards;
+}
+
+@keyframes showExeAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes closeExeAnimation {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }

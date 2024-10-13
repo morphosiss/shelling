@@ -4,7 +4,7 @@ import Morphosis from "/img/logo.png";
 function Footer() {
   return (
     <footer className="p-5 w-full mt-20 bg-gradient-to-b from-transparent to-[#2c2c2c]">
-      <div className="max-w-7xl w-full m-auto flex justify-between">
+      <div className="max-w-7xl items-center gap-5 w-full m-auto flex retrato-tablet:flex-row flex-col justify-center retrato-tablet:justify-between">
         <div className="flex items-center gap-10">
           <a
             href="#"
@@ -49,7 +49,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="flex mt-16 max-w-7xl w-full m-auto items-center justify-between ">
+      <div className="flex retrato-tablet:flex-row flex-col  mt-16 max-w-7xl w-full m-auto items-center justify-center gap-5 retrato-tablet:justify-between ">
         <div>
           <img src={Logo} alt="logo_image" className="w-28" />
         </div>
