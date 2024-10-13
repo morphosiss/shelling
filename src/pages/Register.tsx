@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import Logo from "/img/logo_white.png";
-// import CountriesSelect from '../components/ListCountries'
+import CountrySelect from '../components/ListCountries';
 
 interface IInputGroup {
   typeData: "text" | "email" | "password";
   nameData: string;
   id: string;
   labelText: string;
-  place: string
+  place: string;
 }
 
 const InputGroup: React.FC<IInputGroup> = ({
@@ -17,12 +17,15 @@ const InputGroup: React.FC<IInputGroup> = ({
   labelText,
   place
 }) => {
+  const InputRef = useRef<HTMLInputElement | null>(null); 
+
   return (
     <div className="flex flex-col gap-3">
-      <label htmlFor="user_name" className="text-zinc-400 text-[15px]">
+      <label htmlFor={id} className="text-zinc-400 text-[15px]">
         {labelText}
       </label>
       <input
+        ref={InputRef}
         type={typeData}
         name={nameData}
         id={id}
@@ -33,14 +36,23 @@ const InputGroup: React.FC<IInputGroup> = ({
   );
 };
 
-function Register() {
+const Register: React.FC = () => {
+  const [showPassword, setShowPassword] = React.useState(false); // Estado para mostrar ou ocultar a senha
+
+  const ChangeTypeInput = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
-    <main className="w-full h-screen flex justify-center items-center">
-      <div className="bg-gradient-to-b max-w-xl w-full from-[#2c2c2c] to-transparent p-5 rounded-3xl shadow-3xl">
-        <header>
-          <img src={Logo} alt="logo_image" className="w-28 m-auto" />
+    <main className="w-full paisagem-tablet:h-screen flex justify-center items-center">
+      <div className="bg-gradient-to-b paisagem-tablet:mt-0 retrato-tablet:mt-10 max-w-2xl w-full from-[#2c2c2c] to-transparent p-5 retrato-tablet:rounded-3xl shadow-3xl">
+        <header className="text-center">
+          <a href="/">
+            <img src={Logo} alt="logo_image" className="w-28 m-auto" />
+          </a>
+          <small className="text-zinc-200">Preocupa-mos com os seus dados!</small>
         </header>
-        <div className="grid retrato-tablet:grid-cols-2 grid-cols-1 mt-10 gap-2">
+        <div className="grid items-center retrato-tablet:grid-cols-2 grid-cols-1 mt-10 gap-x-2 gap-y-6">
           <InputGroup
             labelText="Nome de Usuário"
             typeData="text"
@@ -55,18 +67,32 @@ function Register() {
             nameData="email"
             place="Insira seu email"
           />
+          <CountrySelect key="country-select" />
           <InputGroup
-            labelText="País"
-            typeData="text"
-            id="pais"
-            nameData="pais"
-            place="Insira seu email"
+            labelText="Criar Senha"
+            typeData={showPassword ? "text" : "password"}
+            id="pass"
+            nameData="pass"
+            place="Crie uma senha forte"
           />
-        
+          <div className="flex items-center gap-2">
+            <input type="checkbox" id="see_pass" onChange={ChangeTypeInput} />
+            <label htmlFor="see_pass" className="text-white cursor-pointer">
+              Mostrar Palavra-chave
+            </label>
+          </div>
+          <div className="retrato-tablet:col-span-2 flex justify-between">
+            <button className="px-6 transition-all hover:bg-zinc-800 hover:ring-4 hover:ring-zinc-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-zinc-900 rounded-full">
+              Criar conta
+            </button>
+            <button className="px-6 transition-all hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-green-600 rounded-full">
+              Entrar
+            </button>
+          </div>
         </div>
       </div>
     </main>
   );
-}
+};
 
 export default Register;
