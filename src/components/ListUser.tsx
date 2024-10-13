@@ -13,7 +13,7 @@ const findInitial = (fullName: string) => {
 
 const CardElement: React.FC<ICardEelement> = ({ name, email, points }) => {
     return (
-        <div className="p-5 shadow-2xl bg-gradient-to-br rounded-xl border border-zinc-800 from-[#252525] to-transparent">
+        <div className="p-5 shadow-2xl bg-gradient-to-br rounded-xl border border-zinc-800 from-[#111111] to-transparent">
             <header className="flex items-start gap-4">
                 <div>
                     <div
