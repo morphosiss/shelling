@@ -1,6 +1,5 @@
 import Tippy from "@tippyjs/react";
-import { Edit, FlagTriangleLeft, FlagTriangleRight, Search, Trash2, UserRoundPen } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import { FlagTriangleRight, Search, Trash2, UserRoundPen } from "lucide-react";
 
 interface ICardEelement {
     name: string;
