@@ -5,6 +5,7 @@ import Tippy from "@tippyjs/react";
 import { Layers3, PackagePlus, Users, Menu } from "lucide-react";
 import ListExe from '../components/ListExe';
 import ListUser from '../components/ListUser';
+import AllExe from '../components/AllExe';
 import 'github-markdown-css/github-markdown.css';
 import '../App.css';
 import {
@@ -40,7 +41,7 @@ const Dashboard: React.FC = () => {
                                     </Link>
                                 </MenubarItem>
                                 <MenubarItem>
-                                    <Link to="/dashboard/novo-exercicio" className="text-white flex items-center text-[15px] gap-3 transition-all hover:text-green-500">
+                                    <Link to="/dashboard/newExe" className="text-white flex items-center text-[15px] gap-3 transition-all hover:text-green-500">
                                         <PackagePlus size={21} /> Novo Exercício
                                     </Link>
                                 </MenubarItem>
@@ -53,8 +54,8 @@ const Dashboard: React.FC = () => {
                 <section className="container_main p-3 w-full h-full overflow-y-auto">
                     <Routes>
                         <Route path="/" index element={<ListUser />} />
-                        <Route path="/exercicios" element={<ListExe />} />
-                        <Route path="/novoExercicio" element={<ListExe />} />
+                        <Route path="/exercicios" element={<AllExe />} />
+                        <Route path="/newExe" element={<ListExe />} />
                     </Routes>
                 </section>
             </main>

@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Logo from "/img/logo_white.png";
 import { Link } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Each from "../components/Each";
 
 interface ICardExerc {

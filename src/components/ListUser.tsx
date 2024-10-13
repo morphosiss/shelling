@@ -53,16 +53,18 @@ const CardElement: React.FC<ICardEelement> = ({ name, email, points }) => {
 const ListUser = () => {
     return (
         <div className="max-w-[90%] gap-5 grid retrato-tablet:grid-cols-2 grid-cols-1 paisagem-tablet:grid-cols-4 w-full m-auto">
-            <div className="flex  mt-6 mb-8 col-span-full transition-all focus-within:border-green-500 w-full items-center border border-zinc-700 gap-3 px-4 bg-[#2c2c2c] rounded-lg">
-                <Search size={20} className="text-zinc-500" />
-                <input
-                    type="text"
-                    name="text"
-                    id="text"
-                    className="outline-none w-full text-white bg-transparent py-3"
-                    placeholder="Busque por um nome..."
-                />
-            </div>
+            <header className="col-span-full ">
+                <div className="flex  mt-6 mb-8 transition-all focus-within:border-green-500 w-full items-center border border-zinc-700 gap-3 px-4 bg-[#2c2c2c] rounded-lg">
+                    <Search size={20} className="text-zinc-500" />
+                    <input
+                        type="text"
+                        name="text"
+                        id="text"
+                        className="outline-none w-full text-white bg-transparent py-3"
+                        placeholder="Busque por um nome..."
+                    />
+                </div>
+            </header>
             <CardElement name="Mário Salembe" email="linomario199010@gmail.com" points={4001} />
             <CardElement name="Luísa Santos" email="luisaantos@gmail.com" points={4001} />
             <CardElement name="Luísa Santos" email="luisaantos@gmail.com" points={4001} />

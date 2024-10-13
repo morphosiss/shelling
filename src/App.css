@@ -20,6 +20,12 @@
 }
 
 
+.markdown-body pre {
+  background-color: #141414 !important; /* Cor de fundo para blocos de código */
+  padding: 10px;
+  border-radius: 5px;
+}
+
 ::-webkit-scrollbar {
   width: 3px;
   height: 3px;
