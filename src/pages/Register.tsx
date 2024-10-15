@@ -1,11 +1,14 @@
 import React, { useRef } from "react";
 import Logo from "/img/logo_white.png";
 import CountrySelect from '../components/ListCountries';
+import useSWR from "swr"
+import axios from "axios";
 
 interface IInputGroup {
   typeData: "text" | "email" | "password";
   nameData: string;
   id: string;
+  func?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   labelText: string;
   place: string;
 }
@@ -15,9 +18,10 @@ const InputGroup: React.FC<IInputGroup> = ({
   nameData,
   id,
   labelText,
-  place
+  place,
+  func
 }) => {
-  const InputRef = useRef<HTMLInputElement | null>(null); 
+  const InputRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <div className="flex flex-col gap-3">
@@ -29,6 +33,7 @@ const InputGroup: React.FC<IInputGroup> = ({
         type={typeData}
         name={nameData}
         id={id}
+        onChange={func}
         className="py-2.5 px-4 bg-[#2c2c2c] transition-all focus:border-green-500 rounded-lg border border-zinc-700 text-white outline-none"
         placeholder={place}
       />
@@ -37,7 +42,16 @@ const InputGroup: React.FC<IInputGroup> = ({
 };
 
 const Register: React.FC = () => {
-  const [showPassword, setShowPassword] = React.useState(false); // Estado para mostrar ou ocultar a senha
+  const [errorUserName, setUserNameError] = React.useState<string>("");
+  const [showPassword, setShowPassword] = React.useState(false);
+  
+  const userNameVerification = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (value.length >= 1 && value.length < 3) {
+      setUserNameError("Seu username deve ter no mínimo 3 caracteres");
+    }
+    console.log(errorUserName);
+  }
 
   const ChangeTypeInput = () => {
     setShowPassword((prev) => !prev);
@@ -45,7 +59,7 @@ const Register: React.FC = () => {
 
   return (
     <main className="w-full paisagem-tablet:h-screen flex justify-center items-center">
-      <div className="bg-gradient-to-b paisagem-tablet:mt-0 retrato-tablet:mt-10 max-w-2xl w-full from-[#2c2c2c] to-transparent p-5 retrato-tablet:rounded-3xl shadow-3xl">
+      <form className="bg-gradient-to-b paisagem-tablet:mt-0 retrato-tablet:mt-10 max-w-2xl w-full from-[#2c2c2c] to-transparent p-5 retrato-tablet:rounded-3xl shadow-3xl">
         <header className="text-center">
           <a href="/">
             <img src={Logo} alt="logo_image" className="w-28 m-auto" />
@@ -57,6 +71,7 @@ const Register: React.FC = () => {
             labelText="Nome de Usuário"
             typeData="text"
             id="user_name"
+            func={userNameVerification}
             nameData="user_name"
             place="Crie um nome de usuário"
           />
@@ -64,11 +79,13 @@ const Register: React.FC = () => {
             labelText="E-mail"
             typeData="email"
             id="email"
+           
             nameData="email"
             place="Insira seu email"
           />
           <CountrySelect key="country-select" />
           <InputGroup
+            
             labelText="Criar Senha"
             typeData={showPassword ? "text" : "password"}
             id="pass"
@@ -90,7 +107,7 @@ const Register: React.FC = () => {
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </main>
   );
 };
