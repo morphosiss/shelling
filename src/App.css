@@ -26,6 +26,15 @@
   border-radius: 5px;
 }
 
+.mainTittle {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+
+
 input:-webkit-autofill {
   color: white !important;
   box-shadow: inset 0 0 0 1000px #2c2c2c  !important;
@@ -55,7 +64,29 @@ input:-webkit-autofill::first-line {
   height: 44px;
   border-radius: 50%;
   background: #263238;
+  color: #c02a2a91;
 }
+
+.loader2 {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #FFF;
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+
 @keyframes rotation {
   0% { transform: rotate(0deg) }
   100% { transform: rotate(360deg)}

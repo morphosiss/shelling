@@ -2,8 +2,10 @@ import { Menu, Network, ShieldHalf, Unplug, UserPlus, Zap } from "lucide-react";
 import Logo from "/img/logo_white.png";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { ReactNode, useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { toast, Toaster } from "sonner";
+import Cookies from "js-cookie";
 
 interface ICard {
   icon: ReactNode;
@@ -12,6 +14,7 @@ interface ICard {
 }
 
 const Card: React.FC<ICard> = ({ icon, title, desc }) => {
+
   return (
     <div className="w-full bg-gradient-to-b rounded-t-xl from-green-600 to-transparent p-5">
       <header>{icon}</header>
@@ -24,9 +27,12 @@ const Card: React.FC<ICard> = ({ icon, title, desc }) => {
 };
 
 const BannerIntial = () => {
+
+
   return (
     <section className="paisagem-tablet:mt-44 mt-24">
       <div className="max-w-6xl p-4 pt-10 m-auto w-full text-center">
+
         <h1 className="text-white desktop:text-7xl paisagem-tablet:text-5xl retrato-tablet:text-4xl text-3xl font-medium">
           Teste seus conhecimentos em{" "}
           <span className="text-green-500 underline">shell script</span> de
@@ -38,6 +44,7 @@ const BannerIntial = () => {
             reiciendis sunt vero, consequuntur placeat, blanditiis sit labore
             similique laborum ipsa veritatis necessitatibus, sapiente quasi
             fugit! Animi quod delectus laudantium!
+
           </p>
         </div>
         <div className="items-center pt-6 flex justify-center">
@@ -87,8 +94,49 @@ const BannerIntial = () => {
 };
 
 function Header() {
+  const { jsonData } = useParams<{ jsonData?: string }>();
+  const [parseData, setParseData] = useState<string | null>(null);
+  const [token, setToken] = useState<string | undefined>(undefined)
+  const [userName, setUserName] = useState<string | undefined>(undefined)
+  const [userId, setUserId] = useState<string | undefined>(undefined)
+  const [verifyShow, setVerifyShow] = useState<string | undefined>(undefined);
+
+
+  function capitalize(str: string) {
+    if (!str) return ''; // Verifica se a string não é vazia
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+  const findInitial = (str: string | undefined) => {
+    return str ? capitalize(str.slice(0, 2)) : '';
+  }
+
+  useEffect(() => {
+    try {
+      if (jsonData) {
+        const decodedData = decodeURIComponent(jsonData);
+        setParseData(JSON.parse(decodedData));
+        toast.success("Usuário Criado com Sucesso");
+        setVerifyShow(Cookies.get('show_message'))
+
+      }
+    } catch (error) {
+      console.error("Erro ao parsear JSON:", error);
+      setParseData(null);
+    }
+  }, [jsonData]);
+
+  useEffect(() => {
+    setToken(Cookies.get('token'))
+    setUserName(Cookies.get('username'))
+    setUserId(Cookies.get('id'))
+
+    console.log(token, userName, userId)
+  })
+
   return (
     <header className="w-full">
+      {jsonData && <Toaster position="top-center" />}
       <div className="navbar bg-[#242424] fixed top-0 left-0 right-0 border-b border-zinc-700 flex paisagem-tablet:px-8 px-4 py-4 w-full justify-between paisagem-tablet:justify-around items-center">
         <div>
           <img src={Logo} alt="logo_image" className="w-32" />
@@ -118,24 +166,31 @@ function Header() {
                 Rank
               </a>
             </li>
-            <li>
-              <Tippy content="Cadastre-se">
-                <a
-                  href="#"
-                  className="text-zinc-300 font-medium transition-all hover:text-white"
-                >
-                  <UserPlus size={21} />
-                </a>
-              </Tippy>
-            </li>
-            <li>
-              <Link
-                to="/login"
-                className="px-6 transition-all hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-green-600 rounded-full"
-              >
-                Entrar
+            {token  ? (
+              <Link to="profile/{id}">
+                <div className="w-10 flex items-center justify-center text-white font-medium ring-4 ring-green-500 ring-opacity-50 h-10 bg-green-500 rounded-full">
+                  {findInitial(userName)}
+                </div>
               </Link>
-            </li>
+            ) : (
+              <>
+                <li>
+                  <Tippy content="Cadastre-se">
+                    <Link to="/register" className="text-zinc-300 font-medium transition-all hover:text-white">
+                      <UserPlus size={21} />
+                    </Link>
+                  </Tippy>
+                </li>
+                <li>
+                  <Link
+                    to="/login"
+                    className="px-6 transition-all hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-green-600 rounded-full"
+                  >
+                    Entrar
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
         <div className="paisagem-tablet:hidden inline-flex">

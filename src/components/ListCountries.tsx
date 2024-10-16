@@ -9,8 +9,8 @@ interface Country {
 }
 
 const CountrySelect: React.FC<{
-  setCountryLoading: (loading: boolean) => void, setValueCountry: (value: string) => void
-}> = ({ setCountryLoading, setValueCountry }) => {
+  setCountryLoading: (loading: boolean) => void, setValueCountry: (value: string) => void, textError: string
+}> = ({ setCountryLoading, setValueCountry, textError }) => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
@@ -52,7 +52,10 @@ const CountrySelect: React.FC<{
         Selecione seu país
       </label>
 
-      <div className="flex px-3 border border-zinc-700 rounded-lg bg-[#2c2c2c] items-center gap-2">
+      <div className={`flex px-3 border   ${textError?.length != 0
+        ? "border-red-400"
+        : "border-zinc-700"
+        } rounded-lg bg-[#2c2c2c] items-center gap-2`}>
         {selectedCountry ? (
           <div className="flex items-center">
             <img
@@ -81,6 +84,7 @@ const CountrySelect: React.FC<{
           ))}
         </select>
       </div>
+      <small className="text-red-400">{textError}</small>
     </div>
   );
 };

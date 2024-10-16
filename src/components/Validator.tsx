@@ -18,7 +18,7 @@ export const validateEmail = (value: string): string => {
 
 export const validatePass = (value: string): string => {
   if (value.length < 8 && value.length > 0) {
-	return "Sua senha deve ter no mínimo 8 caracteres";
+	return "A password deve ter no mínimo 8 caracteres";
   }
   return "";
 }

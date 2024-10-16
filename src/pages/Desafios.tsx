@@ -12,8 +12,9 @@ import {
 } from "lucide-react";
 import Logo from "/img/logo_white.png";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Each from "../components/Each";
+import Cookies from "js-cookie";
 
 interface ICardExerc {
   title: string;
@@ -79,6 +80,24 @@ const CardExerc: React.FC<ICardExerc> = ({
 };
 
 function Navbar() {
+  function capitalize(str: string) {
+    if (!str) return ''; // Verifica se a string não é vazia
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+  const findInitial = (str: string | undefined) => {
+    return str ? capitalize(str.slice(0, 2)) : '';
+  }
+
+  const [token, setToken] = useState<string | undefined>(undefined)
+  const [userName, setUserName] = useState<string | undefined>(undefined)
+  const [userId, setUserId] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    setToken(Cookies.get('token'))
+    setUserName(Cookies.get('username'))
+    setUserId(Cookies.get('id'))
+  })
   return (
     <div className="navbar bg-[#242424] fixed top-0 left-0 right-0 border-b border-zinc-700 flex paisagem-tablet:px-8 px-4 py-4 w-full justify-between paisagem-tablet:justify-around items-center">
       <div>
@@ -102,24 +121,31 @@ function Navbar() {
               Rank
             </a>
           </li>
-          <li>
-            <Tippy content="Cadastre-se">
-              <a
-                href="#"
-                className="text-zinc-300 font-medium transition-all hover:text-white"
-              >
-                <UserPlus size={21} />
-              </a>
-            </Tippy>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="px-6 transition-all hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-green-600 rounded-full"
-            >
-              Entrar
-            </a>
-          </li>
+          {token ? (
+            <Link to="profile/{id}">
+              <div className="w-10 flex items-center justify-center text-white font-medium ring-4 ring-green-500 ring-opacity-50 h-10 bg-green-500 rounded-full">
+                {findInitial(userName)}
+              </div>
+            </Link>
+          ) : (
+            <>
+              <li>
+                <Tippy content="Cadastre-se">
+                  <Link to="/register" className="text-zinc-300 font-medium transition-all hover:text-white">
+                    <UserPlus size={21} />
+                  </Link>
+                </Tippy>
+              </li>
+              <li>
+                <Link
+                  to="/login"
+                  className="px-6 transition-all hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-green-600 rounded-full"
+                >
+                  Entrar
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
       <div className="paisagem-tablet:hidden inline-flex">
