@@ -11,7 +11,7 @@ import {
   UserPlus,
 } from "lucide-react";
 import Logo from "/img/logo_white.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Each from "../components/Each";
 import Cookies from "js-cookie";
@@ -81,13 +81,14 @@ const CardExerc: React.FC<ICardExerc> = ({
 
 function Navbar() {
   function capitalize(str: string) {
-    if (!str) return ''; // Verifica se a string não é vazia
+    if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
   const findInitial = (str: string | undefined) => {
     return str ? capitalize(str.slice(0, 2)) : '';
   }
+
 
   const [token, setToken] = useState<string | undefined>(undefined)
   const [userName, setUserName] = useState<string | undefined>(undefined)
@@ -161,10 +162,22 @@ function Navbar() {
 
 export default function Desafios() {
   const [showEach, setShowEach] = useState(false);
-
+  const navigate = useNavigate();
   const toggleEach = () => {
     setShowEach((prev) => !prev);
   };
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = Cookies.get('token');
+      if (!token) {
+        navigate('/register');
+      }
+    };
+
+    checkLoginStatus();
+  }, [navigate]);
+
 
   return (
     <>
@@ -224,14 +237,14 @@ export default function Desafios() {
             {[
               {
                 dateRes: "10/2023",
-                color: "green",
+                color: "green" as "green",
                 level: "Tigre",
                 numberRes: 14,
                 title: "Saltando entre pontos",
               },
               {
                 dateRes: "10/2023",
-                color: "red",
+                color: "red" as "red",
                 level: "Leão",
                 numberRes: 34,
                 title: "Dividindo pelo separador",

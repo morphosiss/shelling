@@ -46,7 +46,7 @@ const InputGroup: React.FC<IInputGroup> = ({
 const Register: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [loadingData, setLoadingData] = useState<boolean>(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const sendData = async (data: Object) => {
         setLoadingData(true);
@@ -59,9 +59,10 @@ const Register: React.FC = () => {
                 }
             });
 
-            Cookies.set('token', response.data.token);
-            Cookies.set('id', response.data.userId);
-            Cookies.set('username', response.data.username);
+            Cookies.set('token', response.data.token, { expires: 7 });
+            Cookies.set('id', response.data.userId, { expires: 7 });
+            Cookies.set('username', response.data.username, { expires: 7 });
+            Cookies.set('show_message', 'true');
             const info = {
                 stat: 'Sua Conta foi criada com sucesso!',
             };
@@ -126,8 +127,8 @@ const Register: React.FC = () => {
                         </label>
                     </div>
                     <div className="flex justify-between mt-3">
-                        <Link to="/register" className="px-6 transition-all hover:bg-zinc-800 hover:ring-4 hover:ring-zinc-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-zinc-900 rounded-full">
-                            Criar Conta
+                        <Link to="/" className="px-6 transition-all hover:bg-zinc-800 hover:ring-4 hover:ring-zinc-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-zinc-900 rounded-full">
+                            Voltar
                         </Link>
                         <button
                             type="submit"
@@ -140,6 +141,11 @@ const Register: React.FC = () => {
                                 "Entrar"
                             )}
                         </button>
+                    </div>
+                    <div className="text-center pt-5">
+                        <Link to="/register" className="text-white transition-all hover:text-zinc-400">
+                            Não tem uma conta? <span className="text-green-500">Registre-se</span>
+                        </Link>
                     </div>
                 </div>
             </form>

@@ -103,22 +103,23 @@ function Header() {
 
 
   function capitalize(str: string) {
-    if (!str) return ''; // Verifica se a string não é vazia
+    if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
   const findInitial = (str: string | undefined) => {
     return str ? capitalize(str.slice(0, 2)) : '';
   }
-
   useEffect(() => {
     try {
       if (jsonData) {
         const decodedData = decodeURIComponent(jsonData);
         setParseData(JSON.parse(decodedData));
-        toast.success("Usuário Criado com Sucesso");
+        if (Cookies.get('show_message')) {
+          toast.success("Usuário Criado com Sucesso");
+          Cookies.remove('show_message');
+        }
         setVerifyShow(Cookies.get('show_message'))
-
       }
     } catch (error) {
       console.error("Erro ao parsear JSON:", error);
@@ -130,8 +131,6 @@ function Header() {
     setToken(Cookies.get('token'))
     setUserName(Cookies.get('username'))
     setUserId(Cookies.get('id'))
-
-    console.log(token, userName, userId)
   })
 
   return (
@@ -166,11 +165,9 @@ function Header() {
                 Rank
               </a>
             </li>
-            {token  ? (
-              <Link to="profile/{id}">
-                <div className="w-10 flex items-center justify-center text-white font-medium ring-4 ring-green-500 ring-opacity-50 h-10 bg-green-500 rounded-full">
-                  {findInitial(userName)}
-                </div>
+            {token ? (
+              <Link to="/profile" className="w-10 flex items-center justify-center text-white font-medium ring-4 ring-green-500 ring-opacity-50 h-10 bg-green-500 rounded-full">
+                {findInitial(userName)}
               </Link>
             ) : (
               <>

@@ -213,8 +213,8 @@ const Register: React.FC = () => {
             </label>
           </div>
           <div className="retrato-tablet:col-span-2 flex justify-between">
-            <Link to="/login" className="px-6 transition-all hover:bg-zinc-800 hover:ring-4 hover:ring-zinc-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-zinc-900 rounded-full">
-              Login
+            <Link to="/" className="px-6 transition-all hover:bg-zinc-800 hover:ring-4 hover:ring-zinc-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-zinc-900 rounded-full">
+              Voltar
             </Link>
             <button
               disabled={isButtonDisabled}
@@ -229,6 +229,11 @@ const Register: React.FC = () => {
                 "Criar"
               )}
             </button>
+          </div>
+          <div className="text-center pt-5 retrato-tablet:col-span-2">
+            <Link to="/login" className="text-white transition-all hover:text-zinc-400">
+              Já tem uma conta? <span className="text-green-500">Entrar</span>
+            </Link>
           </div>
         </div>
       </form>
