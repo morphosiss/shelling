@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "/img/logo_white.png";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -48,6 +48,13 @@ const Register: React.FC = () => {
     const [loadingData, setLoadingData] = useState<boolean>(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (Cookies.get('show_message')) {
+            toast.success("Usuário Criado com Sucesso");
+            Cookies.remove('show_message');
+        }
+    }, [])
+
     const sendData = async (data: Object) => {
         setLoadingData(true);
         const url = "https://shell-git-master-justino-soares-projects.vercel.app/api/login";
@@ -62,7 +69,6 @@ const Register: React.FC = () => {
             Cookies.set('token', response.data.token, { expires: 7 });
             Cookies.set('id', response.data.userId, { expires: 7 });
             Cookies.set('username', response.data.username, { expires: 7 });
-            Cookies.set('show_message', 'true');
             const info = {
                 stat: 'Sua Conta foi criada com sucesso!',
             };

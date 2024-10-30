@@ -11,10 +11,11 @@ import {
   UserPlus,
 } from "lucide-react";
 import Logo from "/img/logo_white.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Each from "../components/Each";
 import Cookies from "js-cookie";
+import getUserPermissions from "@/components/JWT";
 
 interface ICardExerc {
   title: string;
@@ -79,26 +80,19 @@ const CardExerc: React.FC<ICardExerc> = ({
   );
 };
 
-function Navbar() {
+const Navbar: React.FC<{ token: string; userName: string }> = ({
+  token,
+  userName,
+}) => {
   function capitalize(str: string) {
-    if (!str) return '';
+    if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
   const findInitial = (str: string | undefined) => {
-    return str ? capitalize(str.slice(0, 2)) : '';
-  }
+    return str ? capitalize(str.slice(0, 2)) : "";
+  };
 
-
-  const [token, setToken] = useState<string | undefined>(undefined)
-  const [userName, setUserName] = useState<string | undefined>(undefined)
-  const [userId, setUserId] = useState<string | undefined>(undefined)
-
-  useEffect(() => {
-    setToken(Cookies.get('token'))
-    setUserName(Cookies.get('username'))
-    setUserId(Cookies.get('id'))
-  })
   return (
     <div className="navbar bg-[#242424] fixed top-0 left-0 right-0 border-b border-zinc-700 flex paisagem-tablet:px-8 px-4 py-4 w-full justify-between paisagem-tablet:justify-around items-center">
       <div>
@@ -123,7 +117,7 @@ function Navbar() {
             </a>
           </li>
           {token ? (
-            <Link to="profile/{id}">
+            <Link to="/profile">
               <div className="w-10 flex items-center justify-center text-white font-medium ring-4 ring-green-500 ring-opacity-50 h-10 bg-green-500 rounded-full">
                 {findInitial(userName)}
               </div>
@@ -132,7 +126,10 @@ function Navbar() {
             <>
               <li>
                 <Tippy content="Cadastre-se">
-                  <Link to="/register" className="text-zinc-300 font-medium transition-all hover:text-white">
+                  <Link
+                    to="/register"
+                    className="text-zinc-300 font-medium transition-all hover:text-white"
+                  >
                     <UserPlus size={21} />
                   </Link>
                 </Tippy>
@@ -158,31 +155,41 @@ function Navbar() {
       </div>
     </div>
   );
-}
+};
 
 export default function Desafios() {
   const [showEach, setShowEach] = useState(false);
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
+  const [token, setToken] = useState<string | undefined>(undefined);
+  const [userName, setUserName] = useState<string | undefined>(undefined);
+  const [, setUserId] = useState<string | undefined>(undefined);
+
   const toggleEach = () => {
     setShowEach((prev) => !prev);
   };
 
   useEffect(() => {
-    const checkLoginStatus = () => {
-      const token = Cookies.get('token');
-      if (!token) {
-        navigate('/register');
+    const checkLoginStatus = async () => {
+      const token = Cookies.get("token");
+      const checkToken = await getUserPermissions(token || "");
+      if (checkToken?.status === false) {
+        navigate("/login");
       }
     };
 
     checkLoginStatus();
   }, [navigate]);
 
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+    setUserName(Cookies.get("username"));
+    setUserId(Cookies.get("id"));
+  });
 
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar token={token || ""} userName={userName || ""} />
       </header>
       <main className="paisagem-tablet:mt-44 mt-24 w-full p-5">
         <div className="max-w-[85rem] w-full m-auto">
@@ -238,14 +245,14 @@ export default function Desafios() {
               {
                 dateRes: "10/2023",
                 color: "green" as "green",
-                level: "Tigre",
+                level: "Tigre" as "Tigre",
                 numberRes: 14,
                 title: "Saltando entre pontos",
               },
               {
                 dateRes: "10/2023",
                 color: "red" as "red",
-                level: "Leão",
+                level: "Leão" as "Leão",
                 numberRes: 34,
                 title: "Dividindo pelo separador",
               },

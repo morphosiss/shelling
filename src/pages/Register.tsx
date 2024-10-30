@@ -8,6 +8,7 @@ import {
 } from "../components/Validator";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface IInputGroup {
   typeData: "text" | "email" | "password";
@@ -41,11 +42,13 @@ const InputGroup: React.FC<IInputGroup> = ({
         name={nameData}
         id={id}
         onChange={func}
-        className={`py-2.5 px-4 bg-[#2c2c2c] transition-all ${textError?.length != 0
-          ? "focus:border-red-600"
-          : "focus:border-green-500"
-          } rounded-lg border ${textError?.length != 0 ? "border-red-400" : "border-zinc-700"
-          } text-white outline-none`}
+        className={`py-2.5 px-4 bg-[#2c2c2c] transition-all ${
+          textError?.length != 0
+            ? "focus:border-red-600"
+            : "focus:border-green-500"
+        } rounded-lg border ${
+          textError?.length != 0 ? "border-red-400" : "border-zinc-700"
+        } text-white outline-none`}
         placeholder={place}
       />
       <small className="text-red-400">{textError}</small>
@@ -105,32 +108,32 @@ const Register: React.FC = () => {
 
   const sendData = async (data: Object) => {
     setLoadingData(true);
-    const url = "https://shell-git-master-justino-soares-projects.vercel.app/api/create_user";
+    const url =
+      "https://shell-git-master-justino-soares-projects.vercel.app/api/create_user";
 
     try {
       const response = await axios.post(url, data, {
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
-      navigate('/login');
+
+      Cookies.set("show_message", "true");
+      navigate("/login");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const allResponse = error.response?.data.errors;
         allResponse.forEach((dataValue: { campo: string; msg: string }) => {
-          if (dataValue.campo == "name")
-            setUserNameError(dataValue.msg)
-          if (dataValue.campo == "email")
-            setErrorEmail(dataValue.msg)
+          if (dataValue.campo == "name") setUserNameError(dataValue.msg);
+          if (dataValue.campo == "email") setErrorEmail(dataValue.msg);
           if (dataValue.campo == "password")
-            setErrorPass("A password deve ter no mínimo 8 caracteres")
+            setErrorPass("A password deve ter no mínimo 8 caracteres");
           if (valueCountry == "" || valueCountry.length == 0)
-            setErrorPais("Selecione seu país")
-          else
-            setErrorPais("")
+            setErrorPais("Selecione seu país");
+          else setErrorPais("");
         });
       } else {
-        console.error('Erro:', error);
+        console.error("Erro:", error);
       }
     } finally {
       setLoadingData(false);
@@ -146,7 +149,7 @@ const Register: React.FC = () => {
       password: e.currentTarget.pass.value,
       pais: valueCountry,
     };
-    await sendData(data)
+    await sendData(data);
   };
 
   const ChangeTypeInput = () => {
@@ -213,25 +216,28 @@ const Register: React.FC = () => {
             </label>
           </div>
           <div className="retrato-tablet:col-span-2 flex justify-between">
-            <Link to="/" className="px-6 transition-all hover:bg-zinc-800 hover:ring-4 hover:ring-zinc-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-zinc-900 rounded-full">
+            <Link
+              to="/"
+              className="px-6 transition-all hover:bg-zinc-800 hover:ring-4 hover:ring-zinc-500 hover:ring-opacity-25 font-medium py-2.5 text-white bg-zinc-900 rounded-full"
+            >
               Voltar
             </Link>
             <button
               disabled={isButtonDisabled}
-              className={`px-6 transition-all font-medium py-2.5 text-white bg-green-600 rounded-full ${isButtonDisabled
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25"
-                }`}
+              className={`px-6 transition-all font-medium py-2.5 text-white bg-green-600 rounded-full ${
+                isButtonDisabled
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-green-700 hover:ring-4 hover:ring-green-500 hover:ring-opacity-25"
+              }`}
             >
-              {loadindData ? (
-                <span className="loader2"></span>
-              ) : (
-                "Criar"
-              )}
+              {loadindData ? <span className="loader2"></span> : "Criar"}
             </button>
           </div>
           <div className="text-center pt-5 retrato-tablet:col-span-2">
-            <Link to="/login" className="text-white transition-all hover:text-zinc-400">
+            <Link
+              to="/login"
+              className="text-white transition-all hover:text-zinc-400"
+            >
               Já tem uma conta? <span className="text-green-500">Entrar</span>
             </Link>
           </div>

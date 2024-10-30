@@ -6,6 +6,8 @@ import Register from "./pages/Register"
 import Dashboard from "./pages/Dashboard"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile"
+import Rank from "./pages/Rank"
+import ViewProfile from "./pages/ViewProfile";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/rank" element={<Rank />} />
+        <Route path="/profile/:idVisitant" element={<ViewProfile />} />
       </Routes>
     </>
   );

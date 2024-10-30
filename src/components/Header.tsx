@@ -115,10 +115,7 @@ function Header() {
       if (jsonData) {
         const decodedData = decodeURIComponent(jsonData);
         setParseData(JSON.parse(decodedData));
-        if (Cookies.get('show_message')) {
-          toast.success("Usuário Criado com Sucesso");
-          Cookies.remove('show_message');
-        }
+       
         setVerifyShow(Cookies.get('show_message'))
       }
     } catch (error) {
@@ -135,7 +132,7 @@ function Header() {
 
   return (
     <header className="w-full">
-      {jsonData && <Toaster position="top-center" />}
+      {/* {jsonData && <Toaster position="top-center" />} */}
       <div className="navbar bg-[#242424] fixed top-0 left-0 right-0 border-b border-zinc-700 flex paisagem-tablet:px-8 px-4 py-4 w-full justify-between paisagem-tablet:justify-around items-center">
         <div>
           <img src={Logo} alt="logo_image" className="w-32" />
@@ -150,20 +147,21 @@ function Header() {
                 Guia
               </a>
             </li>
-            <Link
-              to="/desafios"
-              className="text-zinc-300 font-medium transition-all hover:text-white"
-            >
-              Desafios
-            </Link>
-
             <li>
-              <a
-                href="#"
+              <Link
+                to="/desafios"
+                className="text-zinc-300 font-medium transition-all hover:text-white"
+              >
+                Desafios
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/rank"
                 className="text-zinc-300 font-medium transition-all hover:text-white"
               >
                 Rank
-              </a>
+              </Link>
             </li>
             {token ? (
               <Link to="/profile" className="w-10 flex items-center justify-center text-white font-medium ring-4 ring-green-500 ring-opacity-50 h-10 bg-green-500 rounded-full">
